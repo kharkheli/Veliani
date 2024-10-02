@@ -20,7 +20,7 @@ export default function Header() {
       <div className="flex flex-col md:w-auto w-full">
         <Link href="/">
           <p className="font-[900] whitespace-nowrap text-center font-[Roboto] text-2xl">
-            {t("VELIANI SHOP")}
+            {t("KOSTA YLE XAR")}
           </p>
           <p className="font-[900] text-center font-[Roboto] text-md">
             {t("MEAT SHOP")}
