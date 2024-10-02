@@ -37,7 +37,14 @@ export default function Header() {
             />
           </div>
         ) : (
-          <div className="w-full h-full fixed top-0 left-0 bg-[#f0e9da] font-[Roboto] font-[900] text-xl">
+          <div className="w-full h-full fixed top-0 left-0 bg-[#f0e9da] font-[Roboto] font-[900] text-2xl">
+            <div className="flex justify-end absolute top-3 right-3">
+              <Icon
+                onClick={() => setShowMenu(false)}
+                className="w-8 h-8 cursor-pointer"
+                icon="maki:cross"
+              />
+            </div>
             <div className="border-b-2 border-foreground flex flex-col md:w-auto w-full">
               <Link href="/" onClick={() => setShowMenu(false)}>
                 <p className="font-[900] whitespace-nowrap text-center font-[Roboto] text-2xl">

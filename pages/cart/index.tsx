@@ -9,12 +9,13 @@ export default function Cart() {
   const [cart, setCart] = useLocalStorageState<any>("cart");
 
   const total = useMemo(() => {
+    if (!cart) return 0;
     return cart
       .filter((product: any) => product.selected)
       .reduce((acc: number, product: any) => {
         return acc + (product.sale_price ?? product.price) * product.amount;
       }, 0);
-  }, cart);
+  }, [cart]);
 
   function handleInputChange(e: any, index: number) {
     if (Number.isNaN(e.target.value)) return;
@@ -52,7 +53,7 @@ export default function Cart() {
   return (
     <>
       {cart?.length ? (
-        <div className="flex pt-10">
+        <div className="px-2 md:px-0 w-full flex pt-10 md:flex-row gap-y-5 flex-col-reverse">
           <div className="p-3 bg-white/40 flex flex-col rounded w-full">
             <div className="flex items-center justify-between">
               <h3 className=" text-3xl font-bold font-[Roboto]">
@@ -78,19 +79,19 @@ export default function Cart() {
               <p className="font-bold text-sm">{t("Price")}</p>
             </div>
 
-            {cart &&
-              cart.map((product: any, index: number) => (
-                <div
-                  key={index}
-                  className="flex gap-2 py-4 border-t border-foreground items-center"
-                >
-                  <input
-                    type="checkbox"
-                    checked={product.selected}
-                    onChange={() => handleSelectProduct(index)}
-                  />
+            {cart.map((product: any, index: number) => (
+              <div
+                key={index}
+                className="flex gap-2 py-4 border-t border-foreground items-center"
+              >
+                <input
+                  type="checkbox"
+                  checked={product.selected}
+                  onChange={() => handleSelectProduct(index)}
+                />
+                <div>
                   <Link
-                    className="w-64 h-40 shrink-0"
+                    className="md:w-64 md:h-40 w-40 shrink-0"
                     href={`/product/${product.id}`}
                     target={"_blank"}
                   >
@@ -100,8 +101,28 @@ export default function Cart() {
                       alt={product.name}
                     />
                   </Link>
+                  <div className="mt-auto mb-0 flex gap-2 items-center md:hidden">
+                    <input
+                      className="w-20 rounded px-2 py-1"
+                      type="number"
+                      step={0.1}
+                      value={product.amount}
+                      onChange={(e) => handleInputChange(e, index)}
+                    />
+                    <p className="text-lg font-bold">KG</p>
+                    <div>
+                      <button
+                        className="ml-2 text-sm text-blue-500 underline"
+                        onClick={() => handleRemoveProduct(index)}
+                      >
+                        {t("remove")}
+                      </button>
+                    </div>
+                  </div>
+                </div>
 
-                  <div className="h-full flex items-start justify-start flex-col">
+                <div className="h-full items-start justify-start">
+                  <div className="flex w-full justify-between">
                     <Link
                       target={"_blank"}
                       href={`/product/${product.id}`}
@@ -109,36 +130,38 @@ export default function Cart() {
                     >
                       {product.name}
                     </Link>
-                    <p className="text-gray-500 text-lg">{product.species}</p>
-                    <p className="text-gray-700 text-lg line-clamp-2">
-                      {product.description}
-                    </p>
-                    <div className="mt-auto mb-0 flex gap-2 items-center">
-                      <input
-                        className="w-20 rounded px-2 py-1"
-                        type="number"
-                        step={0.1}
-                        value={product.amount}
-                        onChange={(e) => handleInputChange(e, index)}
-                      />
-                      <p className="text-lg font-bold">KG</p>
-                      <div>
-                        <button
-                          className="ml-2 text-sm text-blue-500 underline"
-                          onClick={() => handleRemoveProduct(index)}
-                        >
-                          {t("remove")}
-                        </button>
-                      </div>
+                    <div className="h-full font-bold">
+                      {product.sale_price ?? product.price}₾
                     </div>
                   </div>
-                  <div className="h-full font-bold">
-                    {product.sale_price ?? product.price}₾
+
+                  <p className="text-gray-500 text-lg">{product.species}</p>
+                  <p className="text-gray-700 text-lg line-clamp-2">
+                    {product.description}
+                  </p>
+                  <div className="mt-auto mb-0 md:flex gap-2 items-center hidden">
+                    <input
+                      className="w-20 rounded px-2 py-1"
+                      type="number"
+                      step={0.1}
+                      value={product.amount}
+                      onChange={(e) => handleInputChange(e, index)}
+                    />
+                    <p className="text-lg font-bold">KG</p>
+                    <div>
+                      <button
+                        className="ml-2 text-sm text-blue-500 underline"
+                        onClick={() => handleRemoveProduct(index)}
+                      >
+                        {t("remove")}
+                      </button>
+                    </div>
                   </div>
                 </div>
-              ))}
+              </div>
+            ))}
           </div>
-          <div className="w-72 shrink-0 pl-4 rounded">
+          <div className="md:w-72 w-full shrink-0 overflow-hidden md:pl-4 rounded-md">
             <div className="bg-white/40">
               <div className="p-3">
                 <h3 className="text-3xl font-bold font-[Roboto] tracking-wider">

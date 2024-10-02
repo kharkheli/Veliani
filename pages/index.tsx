@@ -18,15 +18,15 @@ export default function Home() {
       {/*? main*/}
 
       <main>
-        <div className="w-full  h-96">
+        <div className="w-full  md:h-96 h-48">
           <img
-            className="fixed left-0 -z-10 top-20 w-full h-96 object-cover overflow-hidden"
+            className="h-48 fixed left-0 -z-10 top-20 w-full md:h-96 object-cover overflow-hidden"
             src="/media/cover.jpg"
             alt="cover"
           />
         </div>
         <div className="bg-background pt-5">
-          <div className="grid grid-cols-4 gap-4">
+          <div className="grid md:grid-cols-4 gap-4 grid-cols-2 md:px-0 px-2">
             {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14].map((item) => (
               <Product product={{ ...product, id: item }} key={item} />
             ))}
