@@ -2,6 +2,8 @@ import { useRouter } from "next/router";
 import Header from "@/pages/components/navigation/Header";
 import { useTranslation } from "next-i18next";
 import Product from "@/pages/components/Product";
+import useLocalStorageState from "use-local-storage-state";
+import { ChangeEvent, useCallback, useState } from "react";
 
 const product = {
   id: 1,
@@ -17,6 +19,22 @@ const product = {
 export default function Prod(props: any) {
   const router = useRouter();
   const { t } = useTranslation();
+  const [cart, setCart] = useLocalStorageState<any>("cart");
+  const [amount, setAmount] = useState<string>("");
+
+  const handleInputChange = (e: any) => {
+    if (Number.isNaN(e.target.value)) return;
+    setAmount(e.target.value);
+  };
+  const handeAddToCart = useCallback(() => {
+    if (!amount) return;
+    if (cart) {
+      setCart([...cart, { ...product, amount, selected: true }]);
+    } else {
+      setCart([{ ...product, amount: amount }]);
+    }
+    setAmount("");
+  }, [cart, amount]);
 
   return (
     <div>
@@ -52,6 +70,8 @@ export default function Prod(props: any) {
                 <input
                   step={0.1}
                   type="number"
+                  value={amount}
+                  onChange={handleInputChange}
                   className="w-24 rounded h-10 py-1 px-2"
                 />{" "}
                 <p className="font-bold text-lg">KG</p>
@@ -59,7 +79,7 @@ export default function Prod(props: any) {
               <div className="flex items-end gap-4">
                 <button
                   className="bg-[#ffd814] text-foreground py-2 px-4 font-[600] rounded mt-2"
-                  onClick={() => router.push("/cart")}
+                  onClick={handeAddToCart}
                 >
                   {t("Add to cart")}
                 </button>
