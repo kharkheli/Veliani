@@ -1,18 +1,21 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Creepster&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #e5d9c0;
+  --foreground: #1e1c1a;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
+/*@media (prefers-color-scheme: light) {*/
+/*  :root {*/
+/*    --background: #0a0a0a;*/
+/*    --foreground: #ededed;*/
+/*  }*/
+/*}*/
 
 body {
   color: var(--foreground);
@@ -24,4 +27,21 @@ body {
   .text-balance {
     text-wrap: balance;
   }
+}
+
+
+.swiper-button-next,
+.swiper-button-prev {
+  right:10px;
+  margin: 10px;
+  color: #000 !important;
+  fill: black !important;
+  stroke: black !important;
+}
+
+.gm-style-iw-chr{
+  display: none;
+}
+.gm-style-iw-c{
+  padding: 0 !important;
 }
