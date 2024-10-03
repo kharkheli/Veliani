@@ -13,7 +13,7 @@ export default function Product({ product }: { product: Product }) {
   return (
     <Link
       href={`/product/${product.id}`}
-      className="flex flex-col rounded overflow-hidden p-3 bg-white/40"
+      className="flex flex-col rounded overflow-hidden p-3 bg-[#f0e9da]"
     >
       <img className="rounded" src={product.images[0]} alt={product.name} />
       <div className="pt-4">

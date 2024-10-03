@@ -25,7 +25,7 @@ export default function Home() {
             alt="cover"
           />
         </div>
-        <div className="bg-background pt-5">
+        <div className="pt-5">
           <div className="grid md:grid-cols-4 gap-4 grid-cols-2 md:px-0 px-2">
             {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14].map((item) => (
               <Product product={{ ...product, id: item }} key={item} />
